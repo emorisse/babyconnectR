@@ -1,3 +1,9 @@
+# create three output images from the model based analysis across all of the nursing data:  
+#   1. hours.png - hour of the day (or night) the nursing took place, compared with full datetime
+#   2. durationHour.png - hour of the day or night, compared with the length of the nursing
+#   3. durationStart.png - full datetime, compared with the length of the nursing
+# Note: I was only able to recognize any discernable change over time for my son with durationStart.png
+
 options(stringsAsFactors = FALSE)
 library(mclust)
 library(ggplot2)

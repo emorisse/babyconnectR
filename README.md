@@ -1,8 +1,9 @@
 babyconnectR
 ============
 
+* create data/
 * drop your csv files in data/
-* run the baby.R script
+* run the clusters.R script from within R
 
 # outputs
 * hours.png - clusters show comparing start.ct (date and time) to start.hour (hour of the day)
