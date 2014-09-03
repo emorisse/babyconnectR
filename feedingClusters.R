@@ -14,9 +14,10 @@ data <- do.call(rbind, tables)
 data <- unique(data)
 
 c2 <- data[data$Activity=="Nursing",c(1,2,4)]
+c2 <- c2[!is.na(c2$Duration..min.),]
 c <- data.frame(
-	as.POSIXct(c2[,1],format="%m/%d/%y %H:%M"),
-	as.POSIXct(c2[,2],format="%m/%d/%y %H:%M"),
+	as.POSIXct(c2[,1]),
+	as.POSIXct(c2[,2]),
 	c2[,3],
 	rep(0,nrow(c2)),
 	rep(0,nrow(c2))
