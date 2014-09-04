@@ -54,6 +54,6 @@ names(d) <- c(names(c), "day")
 f <- ddply(d[order(d$start.ct),], .(day), transform, perc = duration/sum(duration)*100)
 f <- ddply(f, .(day), transform, cumperc = cumsum(perc))
 png("feedingPercentByHour.png")
-ggplot(f, aes(factor(day), y=perc, fill=factor(start.hour), label=round(start.hour))) + geom_bar(stat="identity") + guides(fill=FALSE) + geom_text(aes(x=factor(f$day), y=f$cumperc, ymax=f$cumperc),size=2.7) + ylab("% of feeding")
+ggplot(f, aes(day, y=perc, fill=factor(start.hour), label=round(start.hour))) + geom_bar(stat="identity") + guides(fill=FALSE) + geom_text(aes(x=f$day, y=f$cumperc, ymax=f$cumperc),size=2.7) + ylab("% of feeding")
 dev.off()
 
