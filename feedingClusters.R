@@ -29,20 +29,20 @@ c$end.hour   <- as.POSIXlt(c$end.ct)$hour + as.POSIXlt(c$end.ct)$min/60 + as.POS
 fit <- Mclust(c)
 hours<-qplot(start.ct, jitter(start.hour), col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
 png("feedingHours.png")
-hours
+hours + ggtitle("Day and Time of Day")
 dev.off()
 
 durationHour <-qplot(jitter(start.hour), duration, col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
 png("feedingDurationHour.png")
-durationHour
+durationHour + ggtitle("Time of Day and Duration of Feeding")
 dev.off()
 
 durationStart <- qplot(start.ct, duration, col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
 png("feedingDurationStart.png")
-durationStart
+durationStart + ggtitle("Day and Duration of Feeding")
 dev.off()
 
 feedingRange <- ggplot(c, aes(trunc(start.ct, "day"), start.hour, ymin=start.hour, ymax=start.hour+duration/60, col=factor(fit$classification)))
 png("feedingRange.png")
-feedingRange + geom_linerange() + scale_colour_brewer(palette="Set1","cluster")
+feedingRange + geom_linerange() + scale_colour_brewer(palette="Set1","cluster") + ggtitle("Duration of Feedings by Day")
 dev.off()

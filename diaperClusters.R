@@ -22,25 +22,25 @@ c$BM[grep("BM", c2[,2])] <- 1
 fit <- Mclust(c)
 hours<-qplot(start.ct, jitter(start.hour), col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
 png("diaperHours.png")
-hours
+hours + ggtitle("Day and Time of Day")
 dev.off()
 
 diaperWet <-qplot(jitter(start.hour), jitter(Wet), col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
 png("diaperWetHour.png")
-diaperWet
+diaperWet + ggtitle("Time of Day for Wet Diapers")
 dev.off()
 
 diaperBM <-qplot(jitter(start.hour), jitter(BM), col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
 png("diaperBMHour.png")
-diaperBM
+diaperBM + ggtitle("Time of Day for BM Diapers")
 dev.off()
 
 diaperStart <- qplot(start.ct, jitter(BM+Wet), col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
-png("diaperStart.png")
+png("diaperStart.png") + ggtitle("Day and Any Diaper")
 diaperStart
 dev.off()
 
 diaperHour <- qplot(jitter(start.hour), jitter(BM+Wet), col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
 png("diaperHour.png")
-diaperHour
+diaperHour + ggtitle("Time of Day and Any Diaper")
 dev.off()
