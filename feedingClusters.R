@@ -42,3 +42,7 @@ png("feedingDurationStart.png")
 durationStart
 dev.off()
 
+feedingRange <- ggplot(c, aes(trunc(start.ct, "day"), start.hour, ymin=start.hour, ymax=start.hour+duration/60, col=factor(fit$classification)))
+png("feedingRange.png")
+feedingRange + geom_linerange() + scale_colour_brewer(palette="Set1","cluster")
+dev.off()
