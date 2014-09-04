@@ -28,17 +28,17 @@ c$end.hour   <- as.POSIXlt(c$end.ct)$hour + as.POSIXlt(c$end.ct)$min/60 + as.POS
 
 fit <- Mclust(c)
 hours<-qplot(start.ct, jitter(start.hour), col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
-png("hours.png")
+png("feedingHours.png")
 hours
 dev.off()
 
 durationHour <-qplot(jitter(start.hour), duration, col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
-png("durationHour.png")
+png("feedingDurationHour.png")
 durationHour
 dev.off()
 
 durationStart <- qplot(start.ct, duration, col=factor(fit$classification),data=c) + scale_colour_brewer(palette="Set1","cluster")
-png("durationStart.png")
+png("feedingDurationStart.png")
 durationStart
 dev.off()
 
