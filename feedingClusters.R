@@ -7,6 +7,7 @@
 options(stringsAsFactors = FALSE)
 library(mclust)
 library(ggplot2)
+library(plyr)
 
 filenames <- list.files("data", pattern="*.csv", full.names=TRUE)
 tables <- lapply(filenames, read.csv)
@@ -44,5 +45,15 @@ dev.off()
 
 feedingRange <- ggplot(c, aes(trunc(start.ct, "day"), start.hour, ymin=start.hour, ymax=start.hour+duration/60, col=factor(fit$classification)))
 png("feedingRange.png")
-feedingRange + geom_linerange() + scale_colour_brewer(palette="Set1","cluster") + ggtitle("Duration of Feedings by Day") + xlab("Day") + ylab("Time of Day")
+feedingRange + geom_linerange(size=2) + scale_colour_brewer(palette="Set1","cluster") + ggtitle("Duration of Feedings by Day") + xlab("Day") + ylab("Time of Day")
 dev.off()
+
+
+d <- cbind(c, trunc(c$start.ct, "day"))
+names(d) <- c(names(c), "day")
+f <- ddply(d[order(d$start.ct),], .(day), transform, perc = duration/sum(duration)*100)
+f <- ddply(f, .(day), transform, cumperc = cumsum(perc))
+png("feedingPercentByHour.png")
+ggplot(f, aes(factor(day), y=perc, fill=factor(start.hour), label=round(start.hour))) + geom_bar(stat="identity") + guides(fill=FALSE) + geom_text(aes(x=factor(f$day), y=f$cumperc, ymax=f$cumperc),size=2.7) + ylab("% of feeding")
+dev.off()
+
